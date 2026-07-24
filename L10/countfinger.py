@@ -26,6 +26,10 @@ def countFingers(image, hand_landmarks, handNo=0):
                 # Get Finger Tip and Bottom y Position Value
                 finger_tip_y = landmarks[lm_index].y 
                 finger_bottom_y = landmarks[lm_index - 2].y
+                
+                # Get Thumb Tip and Bottom y Position Value
+                thumb_tip_x = landmarks[lm_index].x
+                thumb_bottom_x = landmarks[lm_index - 2].x
 
                 # Check if ANY FINGER is OPEN or CLOSED
                 if lm_index !=4:
@@ -36,6 +40,15 @@ def countFingers(image, hand_landmarks, handNo=0):
                     if finger_tip_y > finger_bottom_y:
                         fingers.append(0)
                         print("FINGER with id ",lm_index," is Closed")
+                else:
+                    if thumb_tip_x > thumb_bottom_x:
+                        fingers.append(1)
+                        print("THUMB is Open")
+
+                    if thumb_tip_x < thumb_bottom_x:
+                        fingers.append(0)
+                        print("THUMB is Closed")
+
 
         # print(fingers)
         totalFingers = fingers.count(1)
